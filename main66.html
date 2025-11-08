@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Милиса | Журналист</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cream: #fef7f7;
+            --blush: #f8e8e8;
+            --rose: #e8b4b8;
+            --dusty-rose: #d4a5a5;
+            --mauve: #c8a2c8;
+            --lavender: #b19cd9;
+            --text-dark: #5d5d5d;
+            --text-light: #888;
+            --gold: #d4af37;
+        }
+
+        body {
+            font-family: 'Raleway', sans-serif;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--blush) 100%);
+            color: var(--text-dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Декоративные элементы */
+        .floral-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="floral" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M30,20 Q40,15 50,20 T70,20" fill="none" stroke="%23e8b4b8" stroke-width="0.3" opacity="0.1"/><path d="M20,40 Q30,35 40,40 T60,40" fill="none" stroke="%23d4a5a5" stroke-width="0.3" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23floral)"/></svg>');
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Навигация */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(254, 247, 247, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1.2rem 0;
+            border-bottom: 1px solid rgba(232, 180, 184, 0.3);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 500;
+            color: var(--dusty-rose);
+            text-decoration: none;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '✦';
+            position: absolute;
+            top: -5px;
+            right: -15px;
+            color: var(--gold);
+            font-size: 0.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--rose);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--rose);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Герой секция */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-top: 80px;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text {
+            position: relative;
+        }
+
+        .hero-text::before {
+            content: '"';
+            position: absolute;
+            top: -30px;
+            left: -20px;
+            font-size: 4rem;
+            color: var(--rose);
+            font-family: 'Cormorant Garamond', serif;
+            opacity: 0.3;
+        }
+
+        .hero-text h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+        }
+
+        .hero-text h1 span {
+            color: var(--rose);
+            font-style: italic;
+        }
+
+        .hero-text .subtitle {
+            font-size: 1.3rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: var(--text-dark);
+        }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .image-frame {
+            position: relative;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(232, 180, 184, 0.2);
+            border: 8px solid white;
+        }
+
+        .image-frame::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 2px solid var(--rose);
+            border-radius: 40px;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .image-frame img {
+            width: 100%;
+            height: 600px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .image-frame:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Кнопки */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, var(--rose) 0%, var(--mauve) 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(232, 180, 184, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(232, 180, 184, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--rose);
+            color: var(--rose);
+        }
+
+        .btn-outline:hover {
+            background: var(--rose);
+            color: white;
+        }
+
+        /* Секции */
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.8rem;
+            font-weight: 400;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            color: var(--text-dark);
+        }
+
+        .section-title::after {
+            content: '❀';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--rose);
+            font-size: 1.5rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Обо мне */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+        .quote-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            margin: 2rem 0;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(232, 180, 184, 0.1);
+            border-left: 4px solid var(--rose);
+        }
+
+        .quote-card::before {
+            content: '❝';
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 3rem;
+            color: var(--rose);
+            opacity: 0.3;
+        }
+
+        .quote-text {
+            font-style: italic;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .quote-author {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            text-align: right;
+        }
+
+        .info-cards {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .info-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(232, 180, 184, 0.1);
+            border: 1px solid rgba(232, 180, 184, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .info-card h3 {
+            color: var(--rose);
+            margin-bottom: 1rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+        }
+
+        /* Навыки */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(232, 180, 184, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(232, 180, 184, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(135deg, var(--rose) 0%, var(--mauve) 100%);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(232, 180, 184, 0.2);
+        }
+
+        .skill-icon {
+            font-size: 3rem;
+            color: var(--rose);
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .skill-card p {
+            color: var(--text-light);
+        }
+
+        /* Достижения */
+        .achievements-section {
+            background: linear-gradient(135deg, rgba(248, 232, 232, 0.5) 0%, rgba(232, 180, 184, 0.1) 100%);
+            border-radius: 30px;
+            margin: 0 20px;
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .achievement-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(232, 180, 184, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(232, 180, 184, 0.2);
+            position: relative;
+        }
+
+        .achievement-card::before {
+            content: '✦';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: var(--gold);
+            font-size: 1.2rem;
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-5px) rotate(1deg);
+            box-shadow: 0 15px 35px rgba(232, 180, 184, 0.2);
+        }
+
+        .achievement-card h3 {
+            color: var(--rose);
+            margin-bottom: 1rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+        }
+
+        /* Контакты */
+        .contact-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-text {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        .contact-email {
+            display: inline-block;
+            font-size: 1.5rem;
+            color: var(--rose);
+            text-decoration: none;
+            font-weight: 500;
+            margin: 1rem 0;
+            transition: all 0.3s ease;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .contact-email:hover {
+            color: var(--mauve);
+            transform: scale(1.05);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border: 1px solid rgba(232, 180, 184, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--rose);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(232, 180, 184, 0.1);
+        }
+
+        .social-link:hover {
+            background: var(--rose);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(232, 180, 184, 0.2);
+        }
+
+        /* Футер */
+        footer {
+            background: white;
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(232, 180, 184, 0.3);
+        }
+
+        .footer-text {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Анимации */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Адаптивность */
+        @media (max-width: 968px) {
+            .hero-content,
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero-text::before {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-text h1 {
+                font-size: 2.2rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .image-frame img {
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-text h1 {
+                font-size: 1.8rem;
+            }
+
+            .skill-card,
+            .info-card,
+            .achievement-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Декоративный фон -->
+    <div class="floral-bg"></div>
+
+    <!-- Навигация -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="#" class="logo">Милиса</a>
+            <ul class="nav-links">
+                <li><a href="#about">Обо мне</a></li>
+                <li><a href="#skills">Навыки</a></li>
+                <li><a href="#achievements">Достижения</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Герой секция -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Милиса <span>Стефанович</span></h1>
+                <p class="subtitle">Журналист с душой поэта</p>
+                <p>Создаю истории, которые трогают сердца и вдохновляют на изменения. В каждом слове - искренность, в каждой истории - жизнь.</p>
+                <div class="btn-group">
+                    <a href="#about" class="btn">
+                        <i class="fas fa-heart"></i>
+                        Узнать больше
+                    </a>
+                    <a href="#contact" class="btn btn-outline" style="margin-left: 1rem;">
+                        <i class="fas fa-paper-plane"></i>
+                        Написать мне
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="image-frame">
+                
+                    <img src="Милиса2.jpg" alt="Милиса Стефанович">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Обо мне -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">Моя история</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Меня зовут Милиса, и я увлечена миром журналистики. Люблю наблюдать за происходящим вокруг, замечать мельчайшие детали, которые часто остаются незамеченными другими.</p>
+                    
+                    <div class="quote-card">
+                        <div class="quote-text">"Я глубоко убеждён, что если вашей целью является изменение мира, журналистика – это самое действенное и быстрое оружие для этого"</div>
+                        <div class="quote-author">— Том Споппард</div>
+                    </div>
+
+                    <p>Для меня журналистика — это не просто работа с текстом, это способ познавать мир, понимать людей и делиться важной информацией с другими. Я верю, что хороший журналист — это не только человек, который умеет рассказывать истории, но и тот, кто задаёт правильные вопросы, умеет слушать и видеть то, что скрыто на первый взгляд.</p>
+
+                    <p>Каждое событие для меня — это маленькая история, которую нужно раскрыть. Мне нравится изучать факты, анализировать события и находить взаимосвязи, которые делают информацию понятной и интересной для аудитории.</p>
+                </div>
+                <div class="info-cards">
+                    <div class="info-card fade-in">
+                        <h3><i class="fas fa-graduation-cap"></i> Образование</h3>
+                        <p>Студентка 1 курса ГрГУ им. Я. Купалы, ФИКиТ, специальность журналистика</p>
+                    </div>
+                    <div class="info-card fade-in">
+                        <h3><i class="fas fa-seedling"></i> Миссия</h3>
+                        <p>Создавать честный и вдохновляющий контент, который помогает людям понимать мир вокруг</p>
+                    </div>
+                    <div class="info-card fade-in">
+                        <h3><i class="fas fa-feather"></i> Философия</h3>
+                        <p>Каждая история заслуживает быть рассказанной, каждый голос заслуживает быть услышанным</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Навыки -->
+    <section id="skills" class="section">
+        <div class="container">
+            <h2 class="section-title">Мои умения</h2>
+            <div class="skills-grid">
+                <div class="skill-card fade-in">
+                    <div class="skill-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Исследование и анализ</h3>
+                    <p>Глубокий анализ информации, проверка фактов, работа с источниками и критическое мышление</p>
+                </div>
+                <div class="skill-card fade-in">
+                    <div class="skill-icon">
+                        <i class="fas fa-pen-fancy"></i>
+                    </div>
+                    <h3>Создание контента</h3>
+                    <p>Написание статей, репортажей, проведение интервью, создание убедительных нарративов</p>
+                </div>
+                <div class="skill-card fade-in">
+                    <div class="skill-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3>Мультимедиа</h3>
+                    <p>Работа с фото, видео, аудио материалами, создание комплексных мультимедийных проектов</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Достижения -->
+    <section id="achievements" class="section">
+        <div class="achievements-section">
+            <div class="container">
+                <h2 class="section-title">Мои успехи</h2>
+                <div class="achievements-grid">
+                    <div class="achievement-card fade-in">
+                        <h3>Телевизионная деятельность</h3>
+                        <p>Ведущая новостных программ «TV_40». Ведущая и создатель программы «Интервью с гостем»</p>
+                    </div>
+                    <div class="achievement-card fade-in">
+                        <h3>Литературные успехи</h3>
+                        <p>Победитель конкурса «Лишь слову жизнь дана…» в номинации «Я автор!»</p>
+                    </div>
+                    <div class="achievement-card fade-in">
+                        <h3>Творческие награды</h3>
+                        <p>Победительница областного конкурса «Живой голос победы». Призёр VII республиканского молодёжного фестиваля-конкурса «Медиасфера 2025»</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакты -->
+    <section id="contact" class="section">
+        <div class="container">
+            <div class="contact-content">
+                <h2 class="section-title">Давайте создадим что-то прекрасное вместе</h2>
+                <p class="contact-text">Готова к сотрудничеству, новым проектам и интересным вызовам в мире журналистики</p>
+                <a href="mailto:milisastefanovich@gmail.com" class="contact-email">milisastefanovich@gmail.com</a>
+                <div style="margin-top: 2rem;">
+                    <a href="mailto:milisastefanovich@gmail.com" class="btn">
+                        <i class="fas fa-envelope"></i>
+                        Начать разговор
+                    </a>
+                </div>
+                <div class="social-links">
+                    <a href="#" class="social-link">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer>
+        <div class="container">
+            <p class="footer-text">&copy; 2024 Милиса Стефанович. Создано с ❤️</p>
+        </div>
+    </footer>
+
+    <script>
+        // Анимация появления элементов
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Плавная прокрутка
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Обновление года в футере
+        document.querySelector('.footer-text').textContent = `© ${new Date().getFullYear()} Милиса Стефанович. Создано с ❤️`;
+
+        // Параллакс эффект для фона
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const floralBg = document.querySelector('.floral-bg');
+            floralBg.style.transform = `translateY(${scrolled * 0.3}px)`;
+        });
+    </script>
+</body>
+</html>
